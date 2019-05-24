@@ -80,27 +80,47 @@ int main(int argc, char* argv[]) {
         bool starjump_flag=false;
         bool previous_flag = false;
 
-        // while (cap.read(image)) {
-        //     flip(image,image,1);
+        // cap.set(cv::CAP_PROP_FRAME_WIDTH, 1080);
+        // // cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1920);
+        // cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1440);
+        // int frameWidth = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+        // int frameHeight = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+        // std::cout<<"Initial frame width: "<<frameWidth<<std::endl;
+        // std::cout<<"Initial frame height: "<<frameHeight<<std::endl;
+
+        // cap.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
+        // cap.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
+        // // cap.set(cv::CAP_PROP_FRAME_WIDTH, 1080);
+        // // cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1920);
+
+        // frameWidth = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+        // frameHeight = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+        // std::cout<<"New frame width: "<<frameWidth<<std::endl;
+        // std::cout<<"New frame height: "<<frameHeight<<std::endl;
+
         while (cap.isOpened()) {
-            // cap >> initialframe;
-            //     image=initialframe(cv::Rect(0,0,800,1200));
             cap >> image_temp;
+
+            // std::cout<<"Cols: "<<image_temp.cols<<std::endl;
+            // std::cout<<"Rows: "<<image_temp.rows<<std::endl;
+            
             flip(image_temp,image_temp,1);
-            // image=image_temp(cv::Rect(0,0,800,1200));
-            // image=image_temp(cv::Rect(0,0,720,960));
-            image=image_temp(cv::Rect(0,0,720,960));
+            // if (frameHeight == 720 ){
+            //     std::cout<<frameWidth<<"x"<<frameHeight<<std::endl;
+            //     image=image_temp(cv::Rect(0,0,200,600));
+            // }
+            // else if (frameHeight == 480){
+            //     std::cout<<frameWidth<<"x"<<frameHeight<<std::endl;
+            //     image=image_temp(cv::Rect(0,0,200,300));
+            // }
+            // else{
+            //     std::cout<<"frame is bigger than expected"<<std::endl;
+            //     image=image_temp;
+            // }
 
             // cap >> image;
-
-            //Check frame resolution
-            int frameWidth = cap.get(cv::CAP_PROP_FRAME_WIDTH);
-            int frameHeight = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
-            std::cout<<frameWidth<<std::endl;
-            std::cout<<frameHeight<<std::endl;
+            // image=image_temp(cv::Rect(0,0,200,480));
             image=image_temp;
-
-            
 
             double t1 = cv::getTickCount();
             std::vector<HumanPose> poses = estimator.estimate(image);
